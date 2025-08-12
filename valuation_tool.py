@@ -96,7 +96,7 @@ Where \\( D_1 \\) is next year's dividend, \\( k \\) is the cost of equity, and 
 
 **Free Cash Flow to Equity (FCFE):**  
 \\[
-\\text{Value per Share} = \\frac{FCFE \\times (1 + g)}{k - g} \\div \\text{Shares Outstanding}
+Value per Share = [FCFE * (1 + g)/{k - g}] / Shares Outstanding
 \\]  
 Where \\( FCFE \\) is next year's free cash flow to equity, \\( g \\) is its growth rate, and \\( k \\) is the cost of equity.
 
