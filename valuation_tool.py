@@ -102,7 +102,7 @@ Where \\( FCFE \\) is next year's free cash flow to equity, \\( g \\) is its gro
 
 **Free Cash Flow to the Firm (FCFF):**  
 \\[
-\\text{Equity Value} = \\frac{FCFF \\times (1 + g)}{WACC - g} - \\text{Debt} + \\text{Cash}
+Equity Value = [(FCFF * (1 + g)) / {WACC - g}] - [Debt + Cash]
 \\]  
 \\[
 \\text{Value per Share} = \\frac{\\text{Equity Value}}{\\text{Shares Outstanding}}
