@@ -1,16 +1,22 @@
 import streamlit as st
 
 # Title
-st.title("Equity Valuation Tool")
+st.title("Equity Valuation Comparison Tool")
 
 # Sidebar inputs
-st.sidebar.header("Input Financial Data")
+st.sidebar.header("Input Parameters")
 
-# Case study loader
-use_case = st.sidebar.checkbox("Load TechNova Case Study")
+# Case study toggle
+use_case_study = st.sidebar.checkbox("Load TechNova Case Study")
 
-if use_case:
-    # Pre-filled data for TechNova Inc.
+# Default or case study values
+if use_case_study:
+    st.subheader("📘 TechNova Inc. Case Study Notes")
+    st.markdown("""
+    TechNova Inc. is a mid-sized technology firm with stable growth and moderate debt. This case study allows students to compare equity valuation models using realistic financial data.
+    """)
+    
+    # Input values for TechNova
     dividend = 2.50
     dividend_growth = 0.045
     cost_of_equity = 0.09
@@ -23,90 +29,70 @@ if use_case:
     debt = 3000000
     cash = 500000
 else:
-    # Manual input
     dividend = st.sidebar.number_input("Next Year's Dividend (D₁)", value=2.50)
     dividend_growth = st.sidebar.number_input("Dividend Growth Rate (g)", value=0.045)
     cost_of_equity = st.sidebar.number_input("Cost of Equity (k)", value=0.09)
-    fcfe = st.sidebar.number_input("Next Year's FCFE", value=1500000)
+    fcfe = st.sidebar.number_input("Next Year's FCFE", value=1500000.0)
     fcfe_growth = st.sidebar.number_input("FCFE Growth Rate", value=0.04)
     shares_outstanding = st.sidebar.number_input("Shares Outstanding", value=500000)
-    fcff = st.sidebar.number_input("Next Year's FCFF", value=2200000)
+    fcff = st.sidebar.number_input("Next Year's FCFF", value=2200000.0)
     fcff_growth = st.sidebar.number_input("FCFF Growth Rate", value=0.035)
     wacc = st.sidebar.number_input("WACC", value=0.08)
-    debt = st.sidebar.number_input("Total Debt", value=3000000)
-    cash = st.sidebar.number_input("Cash & Equivalents", value=500000)
+    debt = st.sidebar.number_input("Total Debt", value=3000000.0)
+    cash = st.sidebar.number_input("Cash & Equivalents", value=500000.0)
 
 # Valuation calculations
-st.header("Valuation Results")
+ddm_value = dividend / (cost_of_equity - dividend_growth)
+fcfe_value = (fcfe * (1 + fcfe_growth)) / (cost_of_equity - fcfe_growth)
+fcff_value = ((fcff * (1 + fcff_growth)) / (wacc - fcff_growth) - debt + cash) / shares_outstanding
 
-# DDM
-try:
-    ddm_value = dividend / (cost_of_equity - dividend_growth)
-    st.subheader("Dividend Discount Model (DDM)")
-    st.write(f"Estimated Value per Share: ${ddm_value:.2f}")
-except ZeroDivisionError:
-    st.write("DDM calculation error: Check that cost of equity > dividend growth.")
+# Display results
+st.subheader("📈 Valuation Results")
+st.write(f"**Dividend Discount Model (DDM) Value per Share:** ${ddm_value:.2f}")
+st.write(f"**Free Cash Flow to Equity (FCFE) Value per Share:** ${fcfe_value / shares_outstanding:.2f}")
+st.write(f"**Free Cash Flow to the Firm (FCFF) Value per Share:** ${fcff_value:.2f}")
 
-# FCFE
-try:
-    fcfe_value = (fcfe * (1 + fcfe_growth)) / (cost_of_equity - fcfe_growth)
-    fcfe_per_share = fcfe_value / shares_outstanding
-    st.subheader("Free Cash Flow to Equity (FCFE)")
-    st.write(f"Estimated Value per Share: ${fcfe_per_share:.2f}")
-except ZeroDivisionError:
-    st.write("FCFE calculation error: Check that cost of equity > FCFE growth.")
-
-# FCFF
-try:
-    fcff_value = (fcff * (1 + fcff_growth)) / (wacc - fcff_growth)
-    equity_value = fcff_value - debt + cash
-    fcff_per_share = equity_value / shares_outstanding
-    st.subheader("Free Cash Flow to the Firm (FCFF)")
-    st.write(f"Estimated Value per Share: ${fcff_per_share:.2f}")
-except ZeroDivisionError:
-    st.write("FCFF calculation error: Check that WACC > FCFF growth.")
-
-# Case Study Notes
-st.header("TechNova Inc. Case Study Notes")
-st.markdown("""
-TechNova Inc. is a mid-sized technology firm with stable growth and moderate debt. This case allows students to apply three valuation models using realistic financial data. Each model uses different assumptions and discount rates, offering insights into how valuation outcomes vary.
+# Summary of input data
+st.subheader("📊 Summary of Input Data")
+st.markdown(f"""
+- **Dividend (D₁):** ${dividend}
+- **Dividend Growth Rate (g):** {dividend_growth * 100:.2f}%
+- **Cost of Equity (k):** {cost_of_equity * 100:.2f}%
+- **FCFE:** ${fcfe}
+- **FCFE Growth Rate:** {fcfe_growth * 100:.2f}%
+- **FCFF:** ${fcff}
+- **FCFF Growth Rate:** {fcff_growth * 100:.2f}%
+- **WACC:** {wacc * 100:.2f}%
+- **Debt:** ${debt}
+- **Cash & Equivalents:** ${cash}
+- **Shares Outstanding:** {shares_outstanding}
 """)
 
-# Discussion Questions
-st.header("Discussion Questions and Potential Responses")
+# Discussion questions
+st.subheader("🧠 Questions and Potential Responses")
 st.markdown("""
 **1. Which model produced the highest value and why?**  
-*Response:* The FCFF model may produce a higher value if the firm has significant debt and cash reserves, as it values the entire enterprise.
+*Sample Response:* The FCFF model may produce a higher value if the firm has significant debt and cash reserves, as it values the entire enterprise.
 
 **2. How do growth and discount rate assumptions affect outcomes?**  
-*Response:* Higher growth rates increase valuation, while higher discount rates reduce it. The sensitivity to these inputs varies by model.
+*Sample Response:* Higher growth rates increase valuation, while higher discount rates reduce it. Small changes in these inputs can lead to large differences in estimated value.
 
 **3. What impact would increased debt have on FCFF vs. FCFE?**  
-*Response:* Increased debt reduces FCFE (as more cash goes to debt service) but may not affect FCFF directly. It also affects equity value derived from FCFF.
+*Sample Response:* Increased debt reduces FCFE due to higher interest and repayments, but may not affect FCFF directly unless it changes operating cash flows or WACC.
 """)
 
-# Valuation Formulas
-st.header("Valuation Formulas Used")
-st.markdown("""
+# Valuation formulas
+st.subheader("📐 Valuation Formulas Used")
+st.markdown(r"""
 **Dividend Discount Model (DDM):**  
-\\[
-Value per Share = D_1/{k - g}
-\\]  
-Where \\( D_1 \\) is next year's dividend, \\( k \\) is the cost of equity, and \\( g \\) is the dividend growth rate.
+$V = \frac{D_1}{k - g}$
 
 **Free Cash Flow to Equity (FCFE):**  
-\\[
-Value per Share = [FCFE * (1 + g)/{k - g}] / Shares Outstanding
-\\]  
-Where \\( FCFE \\) is next year's free cash flow to equity, \\( g \\) is its growth rate, and \\( k \\) is the cost of equity.
+$V = \frac{FCFE \times (1 + g)}{k - g}$
 
 **Free Cash Flow to the Firm (FCFF):**  
-\\[
-Equity Value = [(FCFF * (1 + g)) / {WACC - g}] - [Debt + Cash]
-\\]  
-\\[
-\\Value per Share = Equity Value / Shares Outstanding
-\\]  
-Where \\( FCFF \\) is next year's free cash flow to the firm, \\( g \\) is its growth rate, and \\( WACC \\) is the weighted average cost of capital.
+$V = \frac{FCFF \times (1 + g)}{WACC - g}$  
+**Equity Value per Share:**  
+$V_{equity} = \frac{Firm\ Value - Debt + Cash}{Shares\ Outstanding}$
 """)
 
