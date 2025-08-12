@@ -18,25 +18,25 @@ if use_case_study:
     
     # Input values for TechNova
     dividend = 2.50
-    dividend_growth = 0.045
+    dividend_growth = 0.05
     cost_of_equity = 0.09
     fcfe = 1500000
     fcfe_growth = 0.04
     shares_outstanding = 500000
     fcff = 2200000
-    fcff_growth = 0.035
+    fcff_growth = 0.04
     wacc = 0.08
     debt = 3000000
     cash = 500000
 else:
     dividend = st.sidebar.number_input("Next Year's Dividend (D₁)", value=2.50)
-    dividend_growth = st.sidebar.number_input("Dividend Growth Rate (g)", value=0.045)
+    dividend_growth = st.sidebar.number_input("Dividend Growth Rate (g)", value=0.05)
     cost_of_equity = st.sidebar.number_input("Cost of Equity (k)", value=0.09)
     fcfe = st.sidebar.number_input("Next Year's FCFE", value=1500000.0)
     fcfe_growth = st.sidebar.number_input("FCFE Growth Rate", value=0.04)
     shares_outstanding = st.sidebar.number_input("Shares Outstanding", value=500000)
     fcff = st.sidebar.number_input("Next Year's FCFF", value=2200000.0)
-    fcff_growth = st.sidebar.number_input("FCFF Growth Rate", value=0.035)
+    fcff_growth = st.sidebar.number_input("FCFF Growth Rate", value=0.04)
     wacc = st.sidebar.number_input("WACC", value=0.08)
     debt = st.sidebar.number_input("Total Debt", value=3000000.0)
     cash = st.sidebar.number_input("Cash & Equivalents", value=500000.0)
