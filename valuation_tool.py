@@ -21,7 +21,7 @@ if use_case_study:
     dividend_growth = 0.05
     cost_of_equity = 0.09
     fcfe = 1500000
-    fcfe_growth = 0.04
+    fcfe_growth = 0.05
     shares_outstanding = 500000
     fcff = 2200000
     fcff_growth = 0.04
@@ -33,7 +33,7 @@ else:
     dividend_growth = st.sidebar.number_input("Dividend Growth Rate (g)", value=0.05)
     cost_of_equity = st.sidebar.number_input("Cost of Equity (k)", value=0.09)
     fcfe = st.sidebar.number_input("Next Year's FCFE", value=1500000.0)
-    fcfe_growth = st.sidebar.number_input("FCFE Growth Rate", value=0.04)
+    fcfe_growth = st.sidebar.number_input("FCFE Growth Rate", value=0.05)
     shares_outstanding = st.sidebar.number_input("Shares Outstanding", value=500000)
     fcff = st.sidebar.number_input("Next Year's FCFF", value=2200000.0)
     fcff_growth = st.sidebar.number_input("FCFF Growth Rate", value=0.04)
