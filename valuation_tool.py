@@ -90,7 +90,7 @@ st.header("Valuation Formulas Used")
 st.markdown("""
 **Dividend Discount Model (DDM):**  
 \\[
-\\Value per Share = \\{D_1}/{k - g}
+Value per Share = D_1/{k - g}
 \\]  
 Where \\( D_1 \\) is next year's dividend, \\( k \\) is the cost of equity, and \\( g \\) is the dividend growth rate.
 
