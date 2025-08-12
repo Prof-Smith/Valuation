@@ -105,7 +105,7 @@ Where \\( FCFE \\) is next year's free cash flow to equity, \\( g \\) is its gro
 Equity Value = [(FCFF * (1 + g)) / {WACC - g}] - [Debt + Cash]
 \\]  
 \\[
-\\text{Value per Share} = \\frac{\\text{Equity Value}}{\\text{Shares Outstanding}}
+\\Value per Share = Equity Value / Shares Outstanding
 \\]  
 Where \\( FCFF \\) is next year's free cash flow to the firm, \\( g \\) is its growth rate, and \\( WACC \\) is the weighted average cost of capital.
 """)
